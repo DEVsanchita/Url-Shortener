@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 export default function App() {
   const [longUrl, setLongUrl] = useState("");
   const [result, setResult] = useState(null);
@@ -14,7 +14,7 @@ export default function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/shorten", {
+      const res = await fetch(`${API_URL}/api/shorten`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ longUrl })
@@ -34,7 +34,7 @@ export default function App() {
   }
 
   async function fetchAnalytics(shortCode) {
-    const res = await fetch(`/api/analytics/${shortCode}`);
+    const res = await fetch(`${API_URL}/api/analytics/${shortCode}`);
     const data = await res.json();
     setAnalytics(data);
   }
